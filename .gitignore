@@ -1,0 +1,28 @@
+# WordPress core & runtime (not part of the theme deliverable)
+wp/wp-admin/
+wp/wp-includes/
+wp/wp-content/uploads/
+wp/wp-content/upgrade/
+wp/wp-content/plugins/
+wp/wp-content/themes/twenty*/
+wp/wp-*.php
+wp/index.php
+wp/xmlrpc.php
+wp/license.txt
+wp/readme.html
+wp/router.php
+wp/.htaccess
+
+# Theme vendor is bundled in the zip but not committed to git
+wp/wp-content/themes/aerowind-energy/vendor/
+
+# Node & screenshots & logs
+node_modules/
+*.log
+shot*.mjs
+home.png
+single*.png
+mobile.png
+admin*.png
+package-lock.json
+package.json
