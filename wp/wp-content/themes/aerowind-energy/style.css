@@ -1,0 +1,349 @@
+/*
+Theme Name: AeroWind Energy
+Theme URI: https://aerowind.example.com
+Author: AeroWind Studio
+Author URI: https://aerowind.example.com
+Description: A premium, fully responsive WordPress theme for the residential wind-energy brand "AeroWind Energy". Home wind turbines, vertical-axis turbines and smart micro-wind controllers. Powered by the free Carbon Fields library (bundled via Composer). Layout inspired by the Brightworld structure but restyled with a Sky Blue / Navy corporate identity.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.6
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: aerowind
+Tags: business, energy, custom-post-type, carbon-fields, responsive
+*/
+
+/* =====================================================================
+   AeroWind Energy — Design Tokens
+   Brand Palette:
+     Deep Sky Blue     #0EA5E9
+     Steel Slate/Navy  #0F172A
+     Soft Mist White   #F8FAFC
+   ===================================================================== */
+:root {
+    --aw-sky: #0EA5E9;
+    --aw-sky-600: #0284C7;
+    --aw-sky-700: #0369A1;
+    --aw-sky-light: #E0F2FE;
+    --aw-navy: #0F172A;
+    --aw-navy-800: #1E293B;
+    --aw-navy-700: #334155;
+    --aw-slate: #475569;
+    --aw-slate-400: #94A3B8;
+    --aw-mist: #F8FAFC;
+    --aw-mist-200: #E2E8F0;
+    --aw-white: #FFFFFF;
+    --aw-teal-band: linear-gradient(135deg, #0F172A 0%, #075985 55%, #0EA5E9 130%);
+    --aw-hero-overlay: linear-gradient(105deg, rgba(15,23,42,0.94) 0%, rgba(3,105,161,0.82) 42%, rgba(14,165,233,0.28) 100%);
+
+    --aw-shadow-sm: 0 4px 14px rgba(15, 23, 42, 0.08);
+    --aw-shadow-md: 0 14px 40px rgba(15, 23, 42, 0.12);
+    --aw-shadow-lg: 0 30px 70px rgba(15, 23, 42, 0.22);
+    --aw-radius: 16px;
+    --aw-radius-lg: 26px;
+    --aw-max: 1200px;
+    --aw-font: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --aw-head: 'Poppins', 'Inter', system-ui, sans-serif;
+}
+
+/* ============================ Reset ============================ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    font-family: var(--aw-font);
+    color: var(--aw-navy);
+    background: var(--aw-white);
+    line-height: 1.65;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, h5 { font-family: var(--aw-head); color: var(--aw-navy); line-height: 1.15; margin: 0 0 .5em; font-weight: 700; letter-spacing: -0.02em; }
+h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); }
+h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); }
+h3 { font-size: 1.3rem; }
+p { margin: 0 0 1rem; }
+a { color: var(--aw-sky-600); text-decoration: none; transition: color .2s ease; }
+a:hover { color: var(--aw-sky-700); }
+img { max-width: 100%; height: auto; display: block; }
+ul { margin: 0; padding: 0; }
+
+.aw-container { width: 100%; max-width: var(--aw-max); margin: 0 auto; padding: 0 24px; }
+.aw-section { padding: 96px 0; }
+.aw-eyebrow {
+    display: inline-block;
+    font-family: var(--aw-head);
+    font-weight: 600;
+    font-size: .78rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--aw-sky-600);
+    background: var(--aw-sky-light);
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+}
+.aw-section-head { text-align: center; max-width: 680px; margin: 0 auto 56px; }
+.aw-section-head p { color: var(--aw-slate); font-size: 1.05rem; }
+
+/* ============================ Buttons ============================ */
+.aw-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--aw-head);
+    font-weight: 600;
+    font-size: .98rem;
+    padding: 14px 30px;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .2s ease, background .2s ease;
+    line-height: 1;
+}
+.aw-btn-primary { background: var(--aw-sky); color: #fff; box-shadow: 0 10px 24px rgba(14,165,233,0.38); }
+.aw-btn-primary:hover { background: var(--aw-sky-600); color: #fff; transform: translateY(-2px); box-shadow: 0 16px 30px rgba(14,165,233,0.45); }
+.aw-btn-ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,0.6); }
+.aw-btn-ghost:hover { background: #fff; color: var(--aw-navy); }
+.aw-btn-dark { background: var(--aw-navy); color: #fff; }
+.aw-btn-dark:hover { background: var(--aw-navy-800); color: #fff; transform: translateY(-2px); }
+
+/* ============================ Announcement Bar ============================ */
+.aw-announce {
+    background: var(--aw-navy);
+    color: #cbd5e1;
+    font-size: .86rem;
+    text-align: center;
+    padding: 9px 16px;
+    letter-spacing: .01em;
+}
+.aw-announce strong { color: #fff; }
+
+/* ============================ Header ============================ */
+.aw-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--aw-mist-200);
+}
+.aw-header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 78px; }
+.aw-logo { display: flex; align-items: center; gap: 10px; font-family: var(--aw-head); font-weight: 800; font-size: 1.35rem; color: var(--aw-navy); letter-spacing: -0.03em; }
+.aw-logo .aw-logo-mark {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: var(--aw-sky); display: grid; place-items: center;
+    box-shadow: 0 8px 18px rgba(14,165,233,0.4);
+}
+.aw-logo .aw-logo-mark svg { width: 24px; height: 24px; }
+.aw-logo span.aw-accent { color: var(--aw-sky); }
+.aw-logo img { max-height: 44px; width: auto; }
+
+.aw-nav { display: flex; align-items: center; gap: 6px; }
+.aw-nav ul { display: flex; align-items: center; gap: 4px; list-style: none; }
+.aw-nav a { font-family: var(--aw-head); font-weight: 500; font-size: .95rem; color: var(--aw-navy-700); padding: 10px 14px; border-radius: 10px; }
+.aw-nav a:hover, .aw-nav .current-menu-item > a { color: var(--aw-sky-600); background: var(--aw-sky-light); }
+
+.aw-header-actions { display: flex; align-items: center; gap: 18px; }
+.aw-header-phone { display: flex; align-items: center; gap: 8px; font-family: var(--aw-head); font-weight: 600; color: var(--aw-navy); font-size: .95rem; }
+.aw-header-phone svg { width: 18px; height: 18px; color: var(--aw-sky); }
+
+.aw-burger { display: none; background: none; border: 0; cursor: pointer; padding: 8px; }
+.aw-burger span { display: block; width: 26px; height: 2.5px; background: var(--aw-navy); margin: 5px 0; border-radius: 2px; transition: .3s; }
+
+/* ============================ Hero ============================ */
+.aw-hero { position: relative; min-height: 640px; display: flex; align-items: center; background: var(--aw-navy); overflow: hidden; }
+.aw-hero-bg { position: absolute; inset: 0; }
+.aw-hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+.aw-hero-overlay { position: absolute; inset: 0; background: var(--aw-hero-overlay); }
+.aw-hero .aw-container { position: relative; z-index: 2; }
+.aw-hero-content { max-width: 620px; color: #fff; padding: 60px 0; }
+.aw-hero-content .aw-eyebrow { background: rgba(255,255,255,0.14); color: #e0f2fe; }
+.aw-hero-content h1 { color: #fff; margin-bottom: 18px; }
+.aw-hero-content p { font-size: 1.2rem; color: #dbeafe; max-width: 520px; margin-bottom: 32px; }
+.aw-hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+.aw-hero-badges { display: flex; gap: 28px; margin-top: 44px; flex-wrap: wrap; }
+.aw-hero-badge { color: #e0f2fe; }
+.aw-hero-badge strong { display: block; font-family: var(--aw-head); font-size: 1.8rem; color: #fff; }
+.aw-hero-badge span { font-size: .85rem; color: var(--aw-slate-400); }
+
+/* ============================ Zig-Zag Intro ============================ */
+.aw-zigzag { background: var(--aw-white); }
+.aw-zigzag-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.aw-zigzag-media { position: relative; }
+.aw-zigzag-media img { border-radius: var(--aw-radius-lg); box-shadow: var(--aw-shadow-md); width: 100%; aspect-ratio: 4/3.4; object-fit: cover; }
+.aw-zigzag-media .aw-float-card {
+    position: absolute; bottom: -28px; right: -22px;
+    background: #fff; border-radius: var(--aw-radius); padding: 20px 24px;
+    box-shadow: var(--aw-shadow-lg); display: flex; align-items: center; gap: 14px;
+}
+.aw-float-card .aw-float-icon { width: 46px; height: 46px; border-radius: 12px; background: var(--aw-sky-light); display: grid; place-items: center; color: var(--aw-sky-600); }
+.aw-float-card strong { display: block; font-family: var(--aw-head); font-size: 1.4rem; color: var(--aw-navy); }
+.aw-float-card span { font-size: .82rem; color: var(--aw-slate); }
+.aw-zigzag-text .aw-rich p { color: var(--aw-slate); font-size: 1.05rem; }
+.aw-zigzag-list { list-style: none; margin: 26px 0 30px; display: grid; gap: 16px; }
+.aw-zigzag-list li { display: flex; gap: 14px; align-items: flex-start; }
+.aw-zigzag-list .aw-check { flex: 0 0 auto; width: 30px; height: 30px; border-radius: 8px; background: var(--aw-sky-light); color: var(--aw-sky-600); display: grid; place-items: center; }
+.aw-zigzag-list h4 { margin: 0 0 2px; font-size: 1.02rem; }
+.aw-zigzag-list p { margin: 0; font-size: .92rem; color: var(--aw-slate); }
+
+/* ============================ Why Wind Grid ============================ */
+.aw-why { background: var(--aw-mist); position: relative; }
+.aw-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
+.aw-card {
+    background: #fff; border-radius: var(--aw-radius); padding: 34px 26px;
+    box-shadow: var(--aw-shadow-sm); border: 1px solid var(--aw-mist-200);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.aw-card:hover { transform: translateY(-6px); box-shadow: var(--aw-shadow-md); border-color: var(--aw-sky-light); }
+.aw-card-icon {
+    width: 58px; height: 58px; border-radius: 15px;
+    background: linear-gradient(135deg, var(--aw-sky), var(--aw-sky-700));
+    display: grid; place-items: center; color: #fff; margin-bottom: 20px;
+    box-shadow: 0 10px 22px rgba(14,165,233,0.35);
+}
+.aw-card-icon svg { width: 28px; height: 28px; }
+.aw-card h3 { margin-bottom: 8px; }
+.aw-card p { color: var(--aw-slate); font-size: .95rem; margin: 0; }
+
+/* ============================ Outstanding Band ============================ */
+.aw-band { background: var(--aw-teal-band); color: #fff; }
+.aw-band .aw-eyebrow { background: rgba(255,255,255,0.14); color: #e0f2fe; }
+.aw-band .aw-section-head h2 { color: #fff; }
+.aw-band .aw-section-head p { color: #cbd5e1; }
+.aw-band-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 34px; }
+.aw-band-col { text-align: center; }
+.aw-band-col .aw-band-icon {
+    width: 64px; height: 64px; margin: 0 auto 18px; border-radius: 50%;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
+    display: grid; place-items: center; color: #7dd3fc;
+}
+.aw-band-col h4 { color: #fff; margin-bottom: 8px; font-size: 1.1rem; }
+.aw-band-col p { color: #cbd5e1; font-size: .92rem; margin: 0; }
+
+/* ============================ Turbines (products) ============================ */
+.aw-products { background: var(--aw-white); }
+.aw-turbine-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
+.aw-turbine-card {
+    background: #fff; border-radius: var(--aw-radius); overflow: hidden;
+    border: 1px solid var(--aw-mist-200); box-shadow: var(--aw-shadow-sm);
+    transition: transform .2s ease, box-shadow .2s ease; display: flex; flex-direction: column;
+}
+.aw-turbine-card:hover { transform: translateY(-6px); box-shadow: var(--aw-shadow-md); }
+.aw-turbine-thumb { aspect-ratio: 4/3; overflow: hidden; background: var(--aw-mist); }
+.aw-turbine-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.aw-turbine-card:hover .aw-turbine-thumb img { transform: scale(1.06); }
+.aw-turbine-body { padding: 22px; display: flex; flex-direction: column; flex: 1; }
+.aw-turbine-body h3 { font-size: 1.15rem; margin-bottom: 6px; }
+.aw-turbine-body h3 a { color: var(--aw-navy); }
+.aw-turbine-body h3 a:hover { color: var(--aw-sky-600); }
+.aw-turbine-power { display: inline-block; font-size: .78rem; font-weight: 600; color: var(--aw-sky-700); background: var(--aw-sky-light); padding: 4px 12px; border-radius: 999px; margin-bottom: 12px; align-self: flex-start; }
+.aw-turbine-body p { font-size: .92rem; color: var(--aw-slate); flex: 1; }
+.aw-turbine-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
+.aw-turbine-price { font-family: var(--aw-head); font-weight: 700; font-size: 1.3rem; color: var(--aw-navy); }
+
+/* ============================ Testimonial ============================ */
+.aw-testi { background: var(--aw-mist); }
+.aw-testi-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: center; }
+.aw-testi-media img { border-radius: var(--aw-radius-lg); box-shadow: var(--aw-shadow-md); width: 100%; aspect-ratio: 5/4; object-fit: cover; }
+.aw-review-card { background: #fff; border-radius: var(--aw-radius-lg); padding: 40px; box-shadow: var(--aw-shadow-md); }
+.aw-google { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.aw-google svg { width: 26px; height: 26px; }
+.aw-stars { color: #FBBF24; font-size: 1.3rem; letter-spacing: 2px; }
+.aw-review-quote { font-size: 1.3rem; font-family: var(--aw-head); font-weight: 500; color: var(--aw-navy); line-height: 1.5; margin-bottom: 26px; }
+.aw-review-author { display: flex; align-items: center; gap: 14px; }
+.aw-review-author .aw-avatar { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg,var(--aw-sky),var(--aw-sky-700)); display: grid; place-items: center; color: #fff; font-family: var(--aw-head); font-weight: 700; font-size: 1.2rem; }
+.aw-review-author strong { display: block; font-family: var(--aw-head); color: var(--aw-navy); }
+.aw-review-author span { font-size: .85rem; color: var(--aw-slate); }
+
+/* ============================ Contact / Lead Form ============================ */
+.aw-contact { background: var(--aw-white); }
+.aw-contact-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 0; border-radius: var(--aw-radius-lg); overflow: hidden; box-shadow: var(--aw-shadow-lg); }
+.aw-contact-side { background: var(--aw-teal-band); color: #fff; padding: 54px 44px; display: flex; flex-direction: column; justify-content: center; }
+.aw-contact-side .aw-eyebrow { background: rgba(255,255,255,0.15); color:#e0f2fe; }
+.aw-contact-side h2 { color: #fff; }
+.aw-contact-side p { color: #cbd5e1; }
+.aw-contact-side ul { list-style: none; margin-top: 22px; display: grid; gap: 14px; }
+.aw-contact-side li { display: flex; align-items: center; gap: 12px; color: #e2e8f0; font-size: .95rem; }
+.aw-contact-side li svg { width: 20px; height: 20px; color: #7dd3fc; flex: 0 0 auto; }
+.aw-contact-form { background: #fff; padding: 54px 46px; }
+.aw-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.aw-field { margin-bottom: 18px; }
+.aw-field label { display: block; font-size: .82rem; font-weight: 600; color: var(--aw-navy-700); margin-bottom: 7px; font-family: var(--aw-head); }
+.aw-field input, .aw-field select, .aw-field textarea {
+    width: 100%; padding: 13px 16px; border: 1.5px solid var(--aw-mist-200);
+    border-radius: 12px; font-family: var(--aw-font); font-size: .95rem; color: var(--aw-navy);
+    background: var(--aw-mist); transition: border-color .2s, box-shadow .2s;
+}
+.aw-field input:focus, .aw-field select:focus, .aw-field textarea:focus {
+    outline: none; border-color: var(--aw-sky); background: #fff; box-shadow: 0 0 0 4px var(--aw-sky-light);
+}
+.aw-field textarea { resize: vertical; min-height: 110px; }
+.aw-form-note { font-size: .8rem; color: var(--aw-slate); margin-top: 14px; }
+
+/* ============================ Single Turbine ============================ */
+.aw-single { background: var(--aw-mist); padding: 60px 0 96px; }
+.aw-breadcrumb { font-size: .88rem; color: var(--aw-slate); margin-bottom: 26px; }
+.aw-breadcrumb a { color: var(--aw-sky-600); }
+.aw-single-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 54px; align-items: start; }
+.aw-single-media img { border-radius: var(--aw-radius-lg); box-shadow: var(--aw-shadow-md); width: 100%; }
+.aw-single-body .aw-turbine-power { font-size: .82rem; }
+.aw-single-body h1 { font-size: clamp(2rem, 4vw, 3rem); margin: 12px 0 8px; }
+.aw-single-price { font-family: var(--aw-head); font-weight: 800; font-size: 2rem; color: var(--aw-sky-600); margin-bottom: 20px; }
+.aw-single-desc { color: var(--aw-slate); font-size: 1.05rem; margin-bottom: 28px; }
+.aw-specs { background: #fff; border-radius: var(--aw-radius); padding: 8px 24px; box-shadow: var(--aw-shadow-sm); border: 1px solid var(--aw-mist-200); margin-bottom: 26px; }
+.aw-specs-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--aw-mist-200); }
+.aw-specs-row:last-child { border-bottom: 0; }
+.aw-specs-row .aw-spec-label { display: flex; align-items: center; gap: 10px; color: var(--aw-navy-700); font-weight: 500; }
+.aw-specs-row .aw-spec-label svg { width: 20px; height: 20px; color: var(--aw-sky); }
+.aw-specs-row .aw-spec-value { font-family: var(--aw-head); font-weight: 700; color: var(--aw-navy); }
+.aw-benefits-box { background: var(--aw-sky-light); border-radius: var(--aw-radius); padding: 26px 28px; border-left: 5px solid var(--aw-sky); }
+.aw-benefits-box h3 { color: var(--aw-navy); margin-bottom: 10px; }
+.aw-benefits-box p { color: var(--aw-navy-700); margin: 0; }
+
+/* ============================ Footer ============================ */
+.aw-footer { background: var(--aw-navy); color: #cbd5e1; padding: 72px 0 0; }
+.aw-footer-top { display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: 44px; padding-bottom: 54px; border-bottom: 1px solid var(--aw-navy-700); }
+.aw-footer .aw-logo { color: #fff; }
+.aw-footer-about { color: var(--aw-slate-400); font-size: .95rem; margin-top: 18px; max-width: 320px; }
+.aw-footer-col h4 { color: #fff; font-size: 1.05rem; margin-bottom: 20px; }
+.aw-footer-col ul { list-style: none; display: grid; gap: 11px; }
+.aw-footer-col a { color: var(--aw-slate-400); font-size: .93rem; }
+.aw-footer-col a:hover { color: var(--aw-sky); }
+.aw-footer-contact li { display: flex; gap: 10px; color: var(--aw-slate-400); font-size: .93rem; margin-bottom: 11px; }
+.aw-footer-contact svg { width: 18px; height: 18px; color: var(--aw-sky); flex: 0 0 auto; }
+.aw-footer-bottom { display: flex; align-items: center; justify-content: space-between; padding: 26px 0; font-size: .86rem; color: var(--aw-slate-400); flex-wrap: wrap; gap: 12px; }
+.aw-footer-bottom a { color: var(--aw-slate-400); }
+.aw-social { display: flex; gap: 10px; }
+.aw-social a { width: 38px; height: 38px; border-radius: 10px; background: var(--aw-navy-800); display: grid; place-items: center; color: #cbd5e1; }
+.aw-social a:hover { background: var(--aw-sky); color: #fff; }
+
+/* ============================ Responsive ============================ */
+@media (max-width: 980px) {
+    .aw-cards, .aw-band-grid, .aw-turbine-grid { grid-template-columns: repeat(2, 1fr); }
+    .aw-zigzag-grid, .aw-testi-grid, .aw-single-grid, .aw-contact-grid { grid-template-columns: 1fr; }
+    .aw-footer-top { grid-template-columns: 1fr 1fr; }
+    .aw-contact-side { padding: 44px 34px; }
+    .aw-zigzag-media .aw-float-card { right: 12px; }
+}
+@media (max-width: 760px) {
+    .aw-section { padding: 68px 0; }
+    .aw-nav, .aw-header-phone { display: none; }
+    .aw-burger { display: block; }
+    .aw-header.aw-open .aw-nav {
+        display: block; position: absolute; top: 78px; left: 0; right: 0;
+        background: #fff; border-bottom: 1px solid var(--aw-mist-200); padding: 12px 24px 20px;
+        box-shadow: var(--aw-shadow-md);
+    }
+    .aw-header.aw-open .aw-nav ul { flex-direction: column; align-items: stretch; gap: 2px; }
+    .aw-header.aw-open .aw-nav a { display: block; }
+    .aw-hero { min-height: 560px; }
+    .aw-form-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+    .aw-cards, .aw-band-grid, .aw-turbine-grid, .aw-footer-top { grid-template-columns: 1fr; }
+    .aw-hero-badges { gap: 20px; }
+    .aw-contact-form, .aw-contact-side { padding: 34px 24px; }
+    .aw-review-card { padding: 28px; }
+}
